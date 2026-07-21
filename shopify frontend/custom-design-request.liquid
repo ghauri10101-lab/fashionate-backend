@@ -1,0 +1,1200 @@
+{% comment %}
+  Custom Design Request - Premium Shopify Section
+  Luxury jewelry design for Fashionate store
+{% endcomment %}
+
+<section class="custom-design-request" role="region" aria-label="Custom Design Request">
+  <div class="custom-design-request__container">
+    
+    {% comment %} Hero Area {% endcomment %}
+    <div class="custom-design-request__hero">
+      <h1 class="custom-design-request__heading">{{ section.settings.heading | escape }}</h1>
+      {% if section.settings.subheading != blank %}
+        <p class="custom-design-request__subheading">{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+    </div>
+
+    {% comment %} Form Card {% endcomment %}
+    <div class="custom-design-request__card">
+      <form id="custom-design-form" class="custom-design-request__form" enctype="multipart/form-data">
+        
+        <div class="custom-design-request__success-message" id="success-message" style="display: none;">
+          <div class="custom-design-request__success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 2 11 13.01 5 7"></polyline>
+            </svg>
+          </div>
+          <h3 class="custom-design-request__success-title">{{ section.settings.success_title | escape }}</h3>
+          <p class="custom-design-request__success-text">{{ section.settings.success_text | escape }}</p>
+        </div>
+
+        <div class="custom-design-request__form-content" id="form-content">
+          
+          {% comment %} Name Input (Optional) {% endcomment %}
+          <div class="custom-design-request__field-group">
+            <label for="custom-design-name" class="custom-design-request__label">
+              {{ section.settings.name_label | escape }}
+              <span class="custom-design-request__optional">{{ section.settings.optional_label | escape }}</span>
+            </label>
+            <input
+              type="text"
+              id="custom-design-name"
+              name="contact[name]"
+              class="custom-design-request__input"
+              placeholder="Your Name (Optional)"
+              maxlength="50"
+              aria-label="Your Name"
+            />
+          </div>
+
+          {% comment %} Email Input (Required) {% endcomment %}
+          <div class="custom-design-request__field-group">
+            <label for="custom-design-email" class="custom-design-request__label">
+              {{ section.settings.email_label | escape }}
+              <span class="custom-design-request__required">*</span>
+            </label>
+            <input
+              type="email"
+              id="custom-design-email"
+              name="contact[email]"
+              class="custom-design-request__input"
+              placeholder="Enter your email"
+              required
+              aria-label="Email Address"
+            />
+            <div class="custom-design-request__error-message" id="email-error" style="display: none;"></div>
+          </div>
+
+          {% comment %} Phone Number Input (Optional) {% endcomment %}
+          <div class="custom-design-request__field-group">
+            <label for="bracelet-phone" class="custom-design-request__label">
+              Phone Number
+              <span class="optional-text">(optional)</span>
+            </label>
+            <p class="field-help-text">For better communication regarding your custom bracelet request, you can provide your phone number.</p>
+            <input
+              type="tel"
+              id="bracelet-phone"
+              name="phone"
+              class="custom-design-request__input"
+              placeholder="+92 300 1234567"
+              autocomplete="tel"
+              aria-label="Phone Number"
+            />
+          </div>
+
+          {% comment %} Bracelet Size Field {% endcomment %}
+          <div class="custom-design-request__field-group">
+            <label for="custom-design-size" class="custom-design-request__label">
+              {{ section.settings.size_label | escape }}
+            </label>
+            <select
+              id="custom-design-size"
+              name="contact[bracelet_size]"
+              class="custom-design-request__select"
+              aria-label="Bracelet Size"
+            >
+              <option value="">Select your size</option>
+              <option value="XS (5.5")">XS (5.5")</option>
+              <option value="S (6")">S (6")</option>
+              <option value="M (6.5")">M (6.5")</option>
+              <option value="L (7")">L (7")</option>
+              <option value="XL (7.5")">XL (7.5")</option>
+              <option value="Custom Size">Custom Size</option>
+            </select>
+            <div class="custom-design-request__custom-size-wrapper" id="custom-size-wrapper" style="display: none; margin-top: 0.75rem;">
+              <input
+                type="text"
+                id="custom-design-custom-size"
+                name="contact[custom_wrist_size]"
+                class="custom-design-request__input"
+                placeholder="Enter wrist size in inches"
+                aria-label="Custom wrist size"
+              />
+            </div>
+          </div>
+
+          {% comment %} Description Textarea {% endcomment %}
+          <div class="custom-design-request__field-group">
+            <label for="custom-design-requirements" class="custom-design-request__label">
+              {{ section.settings.requirements_label | escape }}
+            </label>
+            <textarea
+              id="custom-design-requirements"
+              name="contact[body]"
+              class="custom-design-request__textarea"
+              placeholder="Describe your bracelet. Mention colours, stones, beads, charms, engraving, wrist size, clasp type, finishing or anything else."
+              rows="6"
+              aria-label="Design Requirements"
+              maxlength="1000"
+            ></textarea>
+            <div class="custom-design-request__char-count" id="char-count">
+              <span id="char-count-current">0</span> / <span id="char-count-max">1000</span>
+            </div>
+          </div>
+
+          {% comment %} Image Upload Field {% endcomment %}
+          <div class="custom-design-request__field-group">
+            <label class="custom-design-request__label">
+              {{ section.settings.image_label | escape }}
+            </label>
+            <div class="custom-design-request__upload-container" id="upload-container">
+              <div class="custom-design-request__upload-area" id="upload-area">
+                <input
+                  type="file"
+                  id="custom-design-image"
+                  name="contact[custom_design_image]"
+                  class="custom-design-request__file-input"
+                  accept="image/jpeg,image/png,image/jpg,image/webp"
+                  aria-label="Reference Image"
+                />
+                <label for="custom-design-image" class="custom-design-request__upload-label">
+                  <div class="custom-design-request__upload-content" id="upload-content">
+                    <div class="custom-design-request__upload-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                      </svg>
+                    </div>
+                    <div class="custom-design-request__upload-text">
+                      <span class="custom-design-request__upload-title">Drag & Drop your inspiration image</span>
+                      <span class="custom-design-request__upload-subtitle">or Click to Browse</span>
+                      <span class="custom-design-request__upload-types">PNG, JPG, JPEG, WEBP (max 10MB)</span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="custom-design-request__file-preview" id="file-preview" style="display: none;">
+                <div class="custom-design-request__preview-header">
+                  <svg class="custom-design-request__check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>Preview Image</span>
+                </div>
+                <img id="preview-image" src="" alt="" class="custom-design-request__preview-image" />
+                <div class="custom-design-request__file-info">
+                  <span id="file-name" class="custom-design-request__file-name"></span>
+                  <span id="file-size" class="custom-design-request__file-size"></span>
+                </div>
+                <button type="button" class="custom-design-request__remove-file" id="remove-file">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {% comment %} Submit Button {% endcomment %}
+          <div class="custom-design-request__submit-wrapper">
+            <button
+              type="submit"
+              class="custom-design-request__submit"
+              id="submit-button"
+            >
+              <span class="custom-design-request__submit-text">Submit Custom Design</span>
+              <span class="custom-design-request__loading-spinner" id="loading-spinner" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --custom-design-heading-color: {{ section.settings.heading_color | default: '#1a1a1a' }};
+    --custom-design-subheading-color: {{ section.settings.subheading_color | default: '#666666' }};
+    --custom-design-label-color: {{ section.settings.label_color | default: '#1a1a1a' }};
+    --custom-design-input-bg: {{ section.settings.input_background | default: '#ffffff' }};
+    --custom-design-input-border: {{ section.settings.input_border_color | default: '#e0e0e0' }};
+    --custom-design-input-text: {{ section.settings.input_text_color | default: '#1a1a1a' }};
+    --custom-design-button-color: {{ section.settings.button_color | default: '#1a1a1a' }};
+    --custom-design-button-text-color: {{ section.settings.button_text_color | default: '#ffffff' }};
+    --custom-design-button-hover-color: {{ section.settings.button_hover_color | default: '#2d2d2d' }};
+    --custom-design-button-radius: {{ section.settings.button_border_radius | default: 50 }}px;
+    --custom-design-input-radius: {{ section.settings.input_border_radius | default: 8 }}px;
+    --custom-design-upload-border: {{ section.settings.upload_border_color | default: '#d4af37' }};
+    --custom-design-upload-bg: {{ section.settings.upload_background | default: '#fffbf0' }};
+    --custom-design-success-color: {{ section.settings.success_color | default: '#2e7d32' }};
+    --custom-design-error-color: {{ section.settings.error_color | default: '#c62828' }};
+    --custom-design-padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --custom-design-padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --custom-design-container-width: {{ section.settings.container_width | default: 600 }}px;
+  }
+
+  .custom-design-request {
+    padding: var(--custom-design-padding-top) 20px var(--custom-design-padding-bottom);
+    background: {{ section.settings.section_background | default: '#f8f4eb' }};
+    font-family: var(--font-body-family, 'Inter', 'Segoe UI', Roboto, Arial, sans-serif);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .custom-design-request__container {
+    max-width: var(--custom-design-container-width);
+    margin: 0 auto;
+  }
+
+  /* Hero Area */
+  .custom-design-request__hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .custom-design-request__heading {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--custom-design-heading-color);
+    margin: 0 0 0.75rem;
+    font-family: var(--font-heading-family, 'Playfair Display', Georgia, serif);
+    letter-spacing: -0.02em;
+  }
+
+  .custom-design-request__subheading {
+    font-size: 1rem;
+    color: var(--custom-design-subheading-color);
+    margin: 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* Form Card */
+  .custom-design-request__card {
+    background: var(--custom-design-input-bg);
+    border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--custom-design-input-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .custom-design-request__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+  }
+
+  .custom-design-request__field-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .custom-design-request__label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--custom-design-label-color);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .custom-design-request__optional,
+  .custom-design-request__required {
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-left: 0.25rem;
+    opacity: 0.6;
+  }
+
+  .custom-design-request__required {
+    color: var(--custom-design-error-color);
+  }
+
+  .optional-text{
+    color:#888;
+    font-size:13px;
+    font-weight:500;
+    margin-left:4px;
+  }
+
+  .field-help-text{
+    font-size:13px;
+    color:#777;
+    margin:6px 0 10px;
+    line-height:1.5;
+  }
+
+  .custom-design-request__input,
+  .custom-design-request__select,
+  .custom-design-request__textarea {
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.9375rem;
+    border: 2px solid var(--custom-design-input-border);
+    border-radius: var(--custom-design-input-radius);
+    background: var(--custom-design-input-bg);
+    color: var(--custom-design-input-text);
+    transition: all 0.3s ease;
+    font-family: inherit;
+  }
+
+  .custom-design-request__input:focus,
+  .custom-design-request__select:focus,
+  .custom-design-request__textarea:focus {
+    outline: none;
+    border-color: var(--custom-design-upload-border);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+  }
+
+  .custom-design-request__textarea {
+    resize: vertical;
+    min-height: 180px;
+    line-height: 1.6;
+  }
+
+  .custom-design-request__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+    padding-right: 3rem;
+    cursor: pointer;
+  }
+
+  .custom-design-request__error-message {
+    color: var(--custom-design-error-color);
+    font-size: 0.8125rem;
+    margin-top: 0.5rem;
+  }
+
+  .custom-design-request__char-count {
+    font-size: 0.75rem;
+    color: #888;
+    text-align: right;
+    margin-top: 0.25rem;
+  }
+
+  /* Upload Area */
+  .custom-design-request__upload-container {
+    position: relative;
+  }
+
+  .custom-design-request__upload-area {
+    position: relative;
+    border: 2px dashed var(--custom-design-upload-border);
+    border-radius: var(--custom-design-input-radius);
+    background: var(--custom-design-upload-bg);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+
+  .custom-design-request__upload-area:hover {
+    background: {{ section.settings.upload_hover_background | default: '#f0f0f0' }};
+  }
+
+  .custom-design-request__upload-area.dragover {
+    background: {{ section.settings.upload_drag_background | default: '#e8e8e8' }};
+    border-color: var(--custom-design-button-color);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+
+  .custom-design-request__file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .custom-design-request__upload-label {
+    display: block;
+    cursor: pointer;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .custom-design-request__upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .custom-design-request__upload-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--custom-design-button-color);
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+  }
+
+  .custom-design-request__upload-area:hover .custom-design-request__upload-icon {
+    transform: scale(1.05);
+  }
+
+  .custom-design-request__upload-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .custom-design-request__upload-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .custom-design-request__upload-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--custom-design-label-color);
+  }
+
+  .custom-design-request__upload-subtitle {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .custom-design-request__upload-types {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 0.25rem;
+  }
+
+  .custom-design-request__file-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .custom-design-request__preview-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--custom-design-success-color);
+  }
+
+  .custom-design-request__check-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .custom-design-request__preview-image {
+    max-width: 140px;
+    max-height: 140px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--custom-design-input-border);
+  }
+
+  .custom-design-request__file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    text-align: center;
+  }
+
+  .custom-design-request__file-name {
+    font-size: 0.8125rem;
+    color: var(--custom-design-label-color);
+    word-break: break-word;
+  }
+
+  .custom-design-request__file-size {
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .custom-design-request__remove-file {
+    background: none;
+    border: 1px solid var(--custom-design-error-color);
+    color: var(--custom-design-error-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    transition: all 0.2s ease;
+  }
+
+  .custom-design-request__remove-file:hover {
+    background: var(--custom-design-error-color);
+    color: #fff;
+  }
+
+  /* Submit Button */
+  .custom-design-request__submit-wrapper {
+    margin-top: 1rem;
+  }
+
+  .custom-design-request__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--custom-design-button-text-color);
+    background: var(--custom-design-button-color);
+    border: none;
+    border-radius: var(--custom-design-button-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .custom-design-request__submit:hover:not(:disabled) {
+    background: var(--custom-design-button-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .custom-design-request__submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .custom-design-request__loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-design-request__loading-spinner svg {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Success Message */
+  .custom-design-request__success-message {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .custom-design-request__success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+    color: var(--custom-design-success-color);
+  }
+
+  .custom-design-request__success-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .custom-design-request__success-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--custom-design-heading-color);
+    margin: 0 0 0.75rem;
+    font-family: var(--font-heading-family, 'Playfair Display', Georgia, serif);
+  }
+
+  .custom-design-request__success-text {
+    font-size: 1rem;
+    color: var(--custom-design-subheading-color);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .custom-design-request__container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .custom-design-request__card {
+      padding: 1.5rem;
+      border-radius: {{ section.settings.card_border_radius | default: 16 | minus: 4 }}px;
+    }
+
+    .custom-design-request__heading {
+      font-size: 1.75rem;
+    }
+
+    .custom-design-request__subheading {
+      font-size: 0.9375rem;
+    }
+
+    .custom-design-request__upload-label {
+      padding: 2rem 1rem;
+    }
+
+    .custom-design-request__upload-icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .custom-design-request__card {
+      padding: 1.25rem;
+    }
+
+    .custom-design-request__heading {
+      font-size: 1.5rem;
+    }
+
+    .custom-design-request__field-group {
+      margin-bottom: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+
+    console.log("JS Loaded");
+
+    // DOM Elements
+    var fileInput = document.getElementById('custom-design-image');
+    var uploadArea = document.getElementById('upload-area');
+    var filePreview = document.getElementById('file-preview');
+    var previewImage = document.getElementById('preview-image');
+    var fileName = document.getElementById('file-name');
+    var fileSize = document.getElementById('file-size');
+    var removeFileBtn = document.getElementById('remove-file');
+    var submitButton = document.getElementById('submit-button');
+    var loadingSpinner = document.getElementById('loading-spinner');
+    var submitText = document.querySelector('.custom-design-request__submit-text');
+    var form = document.getElementById('custom-design-form');
+    var successMessage = document.getElementById('success-message');
+    var formContent = document.getElementById('form-content');
+    var emailError = document.getElementById('email-error');
+    var sizeSelect = document.getElementById('custom-design-size');
+    var customSizeWrapper = document.getElementById('custom-size-wrapper');
+    var requirementsTextarea = document.getElementById('custom-design-requirements');
+    var charCountCurrent = document.getElementById('char-count-current');
+
+    console.log("Form Found:", !!form);
+
+    // Allowed file types
+    var allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+
+    // Size dropdown change handler
+    if (sizeSelect) {
+      sizeSelect.addEventListener('change', function() {
+        if (this.value === 'Custom Size') {
+          customSizeWrapper.style.display = 'block';
+        } else {
+          customSizeWrapper.style.display = 'none';
+        }
+      });
+    }
+
+    // Character count for description
+    if (requirementsTextarea && charCountCurrent) {
+      requirementsTextarea.addEventListener('input', function() {
+        var count = this.value.length;
+        charCountCurrent.textContent = count;
+        if (count > 1000) {
+          this.value = this.value.substring(0, 1000);
+          charCountCurrent.textContent = 1000;
+        }
+      });
+    }
+
+    // File input change handler
+    if (fileInput) {
+      fileInput.addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (file) {
+          validateAndPreviewFile(file);
+        }
+      });
+    }
+
+    // Drag and drop handlers
+    if (uploadArea) {
+      ['dragenter', 'dragover'].forEach(function(eventName) {
+        uploadArea.addEventListener(eventName, function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadArea.classList.add('dragover');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(function(eventName) {
+        uploadArea.addEventListener(eventName, function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadArea.classList.remove('dragover');
+        });
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        var file = e.dataTransfer.files[0];
+        if (file) {
+          fileInput.files = e.dataTransfer.files;
+          validateAndPreviewFile(file);
+        }
+      });
+    }
+
+    // Remove file button
+    if (removeFileBtn) {
+      removeFileBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileInput.value = '';
+        filePreview.style.display = 'none';
+        uploadArea.style.display = 'block';
+      });
+    }
+
+    // Validate and preview file
+    function validateAndPreviewFile(file) {
+      // Check file type
+      if (allowedMimeTypes.indexOf(file.type) === -1) {
+        showError('Please upload only PNG, JPG, JPEG, or WEBP files.');
+        fileInput.value = '';
+        return;
+      }
+
+      // Check file size (10MB max)
+      var maxSize = 10 * 1024 * 1024;
+      if (file.size > maxSize) {
+        showError('File size must be less than 10MB.');
+        fileInput.value = '';
+        return;
+      }
+
+      // Preview the image
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        filePreview.style.display = 'flex';
+        uploadArea.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Format file size
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      var k = 1024;
+      var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      var i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Show error message
+    function showError(message) {
+      if (emailError) {
+        emailError.innerHTML = '❌ ' + message;
+        emailError.style.display = 'block';
+        setTimeout(function() {
+          emailError.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // DOM Elements - Additional for validation
+    var nameInput = document.getElementById('custom-design-name');
+
+    // Form submit handler - AJAX submission to Node.js backend
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        console.log("Submit Clicked");
+        e.preventDefault();
+
+        // Validate email (required)
+        var emailInput = document.getElementById('custom-design-email');
+        if (emailInput && !emailInput.value) {
+          showError('Please enter a valid email.');
+          return;
+        }
+
+        // Validate description (required)
+        if (requirementsTextarea && !requirementsTextarea.value.trim()) {
+          showError('Please describe your bracelet design.');
+          return;
+        }
+
+        // Validate image (required)
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+          showError('Please upload an image.');
+          return;
+        }
+
+        // Show loading state
+        submitText.textContent = 'Submitting...';
+        loadingSpinner.style.display = 'flex';
+        submitButton.disabled = true;
+
+        console.log("Creating FormData");
+
+        // Create FormData and append fields with correct names for backend
+        var formData = new FormData();
+        formData.append('name', nameInput ? nameInput.value : '');
+        formData.append('email', emailInput.value);
+        formData.append('phone', document.getElementById('bracelet-phone').value);
+        formData.append('braceletSize', sizeSelect.value);
+        formData.append('description', requirementsTextarea.value);
+        formData.append('image', fileInput.files[0]);
+
+        console.log("Sending Request");
+
+        // Submit to Node.js backend
+        fetch('http://localhost:5001/api/bracelet', {
+          method: 'POST',
+          body: formData
+        })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          console.log("Response Received");
+          if (data.success) {
+            // Show success message
+            formContent.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Reset form
+            form.reset();
+            filePreview.style.display = 'none';
+            uploadArea.style.display = 'block';
+            charCountCurrent.textContent = '0';
+            customSizeWrapper.style.display = 'none';
+          } else {
+            throw new Error(data.message || 'Form submission failed');
+          }
+        })
+        .catch(function(error) {
+          console.error('Error submitting form:', error);
+          showError('Something went wrong. Please try again later.');
+          submitText.textContent = 'Submit Custom Design';
+          loadingSpinner.style.display = 'none';
+          submitButton.disabled = false;
+        });
+      });
+    }
+  });
+  </script>
+
+{% schema %}
+{
+  "name": "Custom Design Request",
+  "tag": "section",
+  "class": "custom-design-request",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Area"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Create Your Own Bracelet"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Already have a bracelet design in mind? Upload your inspiration image and tell us exactly how you want us to create your custom bracelet. Our team will review your request and contact you shortly."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text Size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Form Fields"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name Label",
+      "default": "Your Name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "size_label",
+      "label": "Bracelet Size Label",
+      "default": "Bracelet Size"
+    },
+    {
+      "type": "text",
+      "id": "requirements_label",
+      "label": "Description Label",
+      "default": "Description"
+    },
+    {
+      "type": "text",
+      "id": "image_label",
+      "label": "Image Upload Label",
+      "default": "Reference Image"
+    },
+    {
+      "type": "header",
+      "content": "Success Message"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Success Title",
+      "default": "✅ Thank you!"
+    },
+    {
+      "type": "textarea",
+      "id": "success_text",
+      "label": "Success Text",
+      "default": "Your custom bracelet request has been submitted successfully. We will review your design and contact you shortly."
+    },
+    {
+      "type": "text",
+      "id": "optional_label",
+      "label": "Optional Label Text",
+      "default": "(optional)"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section Background",
+      "default": "#f8f4eb"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input Text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Background",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "upload_border_color",
+      "label": "Upload Border Color",
+      "default": "#d4af37"
+    },
+    {
+      "type": "color",
+      "id": "upload_background",
+      "label": "Upload Background",
+      "default": "#fffbf0"
+    },
+    {
+      "type": "color",
+      "id": "upload_hover_background",
+      "label": "Upload Hover Background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "upload_drag_background",
+      "label": "Upload Drag Background",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "Success Icon Color",
+      "default": "#2e7d32"
+    },
+    {
+      "type": "color",
+      "id": "error_color",
+      "label": "Error Color",
+      "default": "#c62828"
+    },
+    {
+      "type": "header",
+      "content": "Typography & Spacing"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Input Border Radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container Width",
+      "min": 400,
+      "max": 1200,
+      "step": 10,
+      "default": 600,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "default": 80,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Design Request",
+      "category": "Custom",
+      "settings": {
+        "heading": "Create Your Own Bracelet",
+        "subheading": "Already have a bracelet design in mind? Upload your inspiration image and tell us exactly how you want us to create your custom bracelet. Our team will review your request and contact you shortly."
+      }
+    }
+  ]
+}
+{% endschema %}
